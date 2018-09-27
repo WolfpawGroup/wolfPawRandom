@@ -23,7 +23,7 @@ namespace wolfPawRandom
 		}
 
 		//TODO: Initial shuffle still too slow
-		//TODO: add missing stuff
+		//TODO: add missing stuff 
 
 		public void initializeMatrix()
 		{
