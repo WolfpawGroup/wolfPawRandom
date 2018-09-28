@@ -13,10 +13,11 @@ namespace wolfPawRandom
 
 		public static T getRandom<T>(this List<T> List, bool shuffle = true)
 		{
+			if(List.Count % 10 > 0) { List = List.Take(List.Count - (List.Count % 10)).ToList(); }
 			if (shuffle) { List.shuffle(); }
+			
 			var v = List[0];
-			List[0] = List[List.Count - 1];
-			List[List.Count - 1] = v;
+			
 			return v;
 		}
 
@@ -27,31 +28,55 @@ namespace wolfPawRandom
 		/// <param name="times">The number of shuffle operations. Defaults to 1</param>
 		public static void shuffle<T>(this List<T> List, int times = 1)
 		{
-			if(times == 0) { return; }
-			for(int i = 0; i < times; i++)
+			if (List.Count % 10 > 0) { List = List.Take(List.Count - (List.Count % 10)).ToList(); }
+			if (times == 0) { return; }
+			T[] arr = List.ToArray();
+			for (int i = 0; i < times; i++)
 			{
-				T[] arr = List.ToArray();
 				method4(ref arr);
-				List = arr.ToList();
 			}
+			List = arr.ToList();
 		}
 
 		/// <summary>
 		/// M4: Shuffle array (WolfyD)
+		/// Modified to shuffle 10 lines at a time
 		/// </summary>
 		public static void method4<T>(ref T[] arr)
 		{
 			T[] a2 = new T[arr.Length];
 			T[] a3 = new T[arr.Length];
 			arr.CopyTo(a3, 0);
-			for (int i = 1; i < a2.Length + 1; i++)
+			try
 			{
-				Thread.Sleep(2);
-				int r = new Random(method1_short()).Next(0, a3.Length);
-				a2[i - 1] = a3[r];
-				a3 = a3.Except(new T[] { a3[r] }).ToArray();
-				if (a3.Length == 1)
-					break;
+				for (int i = 1; i < a2.Length / 10 + 1; i++)
+				{
+					if (a3.Length == 0)
+						break;
+					Thread.Sleep(1);
+					int r = new Random(method1_short()).Next(0, a3.Length / 10);
+					for (int ii = 0; ii < 10; ii++)
+					{
+						a2[((i - 1) * 10) + ii] = a3[r + ii];
+					}
+
+					a3 = a3.Except(new T[] {
+					a3[r + 0],
+					a3[r + 1],
+					a3[r + 2],
+					a3[r + 3],
+					a3[r + 4],
+					a3[r + 5],
+					a3[r + 6],
+					a3[r + 7],
+					a3[r + 8],
+					a3[r + 9]
+				}).ToArray();
+				}
+			}
+			catch
+			{
+
 			}
 
 			arr = a2;
@@ -100,6 +125,75 @@ namespace wolfPawRandom
 			ret = Convert.ToInt16(r);
 
 			return ret;
+		}
+
+		/// <summary>
+		/// Shifts the lists items to the left
+		/// </summary>
+		/// <param name="List">The list to shift</param>
+		/// <param name="amount">The number of spaces to shift items</param>
+		/// <param name="wrapAround">If false the shift acts like a pop, shortening the list with every shift</param>
+		/// <returns>The shifted List&lt;T&gt;</returns>
+		public static void shiftLeft<T>(this List<T> List, int amount = 1, bool wrapAround = false)
+		{
+			if (List.Count == 0 || amount == 0) { return; }
+			if (!wrapAround && amount >= List.Count) { return; };
+			
+
+			List<T> lst = new List<T>();
+			lst.AddRange(List);
+
+			for (int i = 0; i < amount; i++)
+			{
+				var tmp = lst[0];
+				lst = lst.Skip(1).ToList();
+				if (wrapAround)
+				{
+					lst.Add(tmp);
+				}
+			}
+
+			List.Clear();
+			List.AddRange(lst);
+		}
+
+		/// <summary>
+		/// Shifts the lists items to the Right
+		/// </summary>
+		/// <param name="List">The list to shift</param>
+		/// <param name="amount">The number of spaces to shift items</param>
+		/// <param name="wrapAround">If false the shift acts like a pull, shortening the list with every shift</param>
+		/// <returns>The shifted List&lt;T&gt;</returns>
+		public static List<T> shiftRight<T>(this List<T> List, int amount = 1, bool wrapAround = false)
+		{
+			if (List.Count == 0 || amount == 0) { return List; }
+			if (!wrapAround && amount >= List.Count) { return default(List<T>); }
+
+			for (int i = 0; i < amount; i++)
+			{
+				var tmp = List[List.Count - 1];
+				List = List.GetRange(0, List.Count - 2);
+				if (wrapAround)
+				{
+					List.Prepend(tmp);
+				}
+			}
+
+			return List;
+		}
+
+		public static T pop<T>(this List<T> List)
+		{
+			var v = List[0];
+			List.RemoveAt(0);
+			return v;
+		}
+
+		public static T pull<T>(this List<T> List)
+		{
+			var v = List[List.Count - 1];
+			List.RemoveAt(List.Count - 1);
+			return v;
 		}
 
 		//String extensions

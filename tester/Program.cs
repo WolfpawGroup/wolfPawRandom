@@ -12,7 +12,8 @@ namespace tester
 	{
 		static void Main(string[] args)
 		{
-			int i = WRandom.getRandomInt(4);
+			WRandom wr = new WRandom();
+			int i = wr.getRandomInt(4);
 
 			
 
