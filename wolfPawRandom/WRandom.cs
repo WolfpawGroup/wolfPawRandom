@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
@@ -6,80 +8,157 @@ namespace wolfPawRandom
 {
 	public class WRandom
 	{
-		public RandomMatrix rm = null;
-		private Stopwatch sw = new Stopwatch();
-		private long initialSeed = 0;
+		private readonly Randomizer _randomizer = null;
+		public Randomizer Randomizer => _randomizer;
 
-		public WRandom(long InitialSeed = 0)
+		public WRandom(ulong InitialSeed = 0)
 		{
-			sw.Start();
-
-			rm = new RandomMatrix();
-			
-			initialSeed = InitialSeed;
-
-			while (initialSeed == 0)
-			{
-				initialSeed = generateSeed();
-			}
-
-			("Initial Seed: " + initialSeed).writel(Extensions.col.green);
-
-#if DEBUG
-			("Generation done in: " + sw.Elapsed.TotalSeconds + "s...").writel(Extensions.col.yellow);
-#endif
-			sw.Stop();
+			_randomizer = new Randomizer(InitialSeed);
 		}
+
+		public sbyte getRandomSByte(int length)
+		{
+			return 0;
+		}
+
+		public byte getRandomByte(int length)
+		{
+			return 0;
+		}
+
+		public short getRandomShort(int length)
+		{
+			return 0;
+		}
+
+		//TODO:: EZ MIND!
+		#region int
 
 		public int getRandomInt(int length)
 		{
 			return 0;
 		}
-
-		public void regenerateSeed()
+		
+		public int[] getRandomIntArray(int length = 10)
 		{
-			this.initialSeed = generateSeed();
-			("Initial Seed: " + this.initialSeed).writel(Extensions.col.green);
+			return null;
 		}
 
-		/// <summary>
-		/// Generates random initial seed from initialization vectors from the RandomMatrix
-		/// </summary>
-		/// <returns></returns>
-		public long generateSeed()
+		public List<int> getRandomIntList(int length = 10)
 		{
-			long initialSeed;
-			int		len		= rm.collection.randAdditionalTable.Length;
-			var		v1		= rm.collection.randAdditionalTable[new Random().Next(0, len / 3)];
-			var		v2		= rm.collection.randAdditionalTable[new Random().Next(len / 3, len / 3 + len / 3)];
-			string	tmp		= "";
-			Regex r = new Regex(@"(\d+)", RegexOptions.Multiline | RegexOptions.IgnoreCase | RegexOptions.ECMAScript);
-
-			foreach (Match m in r.Matches(v1))
-			{
-				tmp += m.Groups[0].Value;
-			}
-
-			foreach (Match m in r.Matches(v2))
-			{
-				tmp += m.Groups[0].Value;
-			}
-
-			string tmp2 = "";
-
-			for (int i = 1; i < tmp.Length; i++)
-			{
-				if (i % 2 == 0)
-				{
-					tmp2 += tmp[i];
-				}
-			}
-
-			if (String.Empty.larger(tmp2, "9223372036854775807") == tmp2)
-			{ tmp2 = tmp2.Substring(0, 18); }
-
-			Int64.TryParse(tmp2, out initialSeed);
-			return initialSeed;
+			return null;
 		}
+
+		public HashSet<int> getRandomIntHashSet(int length = 10)
+		{
+			return null;
+		}
+
+		public Queue<int> getRandomIntQueue(int length = 10)
+		{
+			return null;
+		}
+
+		public Stack<int> getRandomIntStack(int length = 10)
+		{
+			return null;
+		}
+
+		public LinkedList<int> getRandomIntLinkedList(int length = 10)
+		{
+			return null;
+		}
+
+		public ObservableCollection<int> getRandomIntObservableCollection(int length = 10)
+		{
+			return null;
+		}
+
+		public SortedList<int,int> getRandomIntSortedList(int length = 10)
+		{
+			return null;
+		}
+
+		public SortedSet<int> getRandomIntSortedSet(int length = 10)
+		{
+			return null;
+		}
+
+		public IEnumerable<int> getRandomIntIEnumerable(int length = 10)
+		{
+			return null;
+		}
+
+
+		#endregion
+
+		public uint getRandomUInt(int length)
+		{
+			return 0;
+		}
+
+		public long getRandomLong(int length)
+		{
+			return 0;
+		}
+
+		public ulong getRandomULong(int length)
+		{
+			return 0;
+		}
+
+		public double getRandomDouble(int length)
+		{
+			return 0;
+		}
+
+		public float getRandomFloat(int length)
+		{
+			return 0;
+		}
+
+		public decimal getRandomDecimal(int length)
+		{
+			return 0;
+		}
+
+		public string getRandomString(int length)
+		{
+			return "";
+		}
+
+		
+
+		public string[] getRandomStringArray(int length = 10)
+		{
+			return null;
+		}
+
+		public string[] getRandomStringArray(int min = 5, int max = 50)
+		{
+			return null;
+		}
+
+		public List<T> getRandomList<T>(int length = 10)
+		{
+			return null;
+		}
+
+		public List<T> getRandomList<T>(int min = 5, int max = 50)
+		{
+			return null;
+		}
+
+		public HashSet<T> getRandomHashSet<T>(int length = 10)
+		{
+			return null;
+		}
+
+		public HashSet<T> getRandomHashSet<T>(int min = 5, int max = 50)
+		{
+			return null;
+		}
+
+
 	}
 }

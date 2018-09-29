@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace wolfPawRandom
 {
@@ -38,11 +35,12 @@ namespace wolfPawRandom
 			{
 				int[] arr = new int[initialWidth];
 
-				for(int w = 0; w < initialWidth; w++)
+				for (int w = 0; w < initialWidth; w++)
 				{
 					int i = w % 10;
 					int ii = -1;
-					while (ii == -1 || history.Contains(ii)) {
+					while (ii == -1 || history.Contains(ii))
+					{
 						ii = (int)(collection.getRandom(i) * (11 * (Math.PI + ((int)Math.E * ((w * 1.0d) / Math.PI)))));
 					}
 					history.Add(ii);
@@ -51,13 +49,12 @@ namespace wolfPawRandom
 
 				matrix[h] = arr;
 			}
-
 		}
 
 		public void drawMatrix()
 		{
 			Console.BufferWidth = 300;
-			Console.Write("".PadRight(5) + "-   " );
+			Console.Write("".PadRight(5) + "-   ");
 
 			for (int w = 0; w < matrix[0].Length; w++)
 			{
@@ -78,6 +75,5 @@ namespace wolfPawRandom
 				Console.WriteLine();
 			}
 		}
-
 	}
 }

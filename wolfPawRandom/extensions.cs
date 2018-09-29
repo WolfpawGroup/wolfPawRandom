@@ -1,13 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace wolfPawRandom
 {
 	public static class Extensions
 	{
-		#region List extensions
+		#region Number Extensions
+		public static void ColorCode(this ulong number, bool writeNumber = false)
+		{
+			ColorCode(number.ToString(), writeNumber);
+		}
+
+		public static void ColorCode(this string number, bool writeNumber = false)
+		{
+			Regex r = new Regex(@"^\d+$");
+			if (!r.IsMatch(number)) { return; }
+
+			foreach(char c in number)
+			{
+				string s = getColorName(c);
+				if (s != "") {
+					if (writeNumber)
+					{
+						cW(c + "", "gray", s);
+					}
+					else
+					{
+						cW(" ", "gray", s);
+					}
+				}
+			}
+
+			cWL("");
+		}
+
+		public static string getColorName(this char num)
+		{
+			int i = -1;
+			if (int.TryParse(num.ToString(), out i))
+			{
+				return getColorName(i);
+			}
+			else
+			{
+				return "";
+			}
+		}
+
+		public static string getColorName(this int num)
+		{
+			num = num % 10;
+			
+			switch (num)
+			{
+				case 0: return "red";
+
+				case 1: return "darkRed";
+
+				case 2: return "yellow";
+
+				case 3: return "darkYellow";
+
+				case 4: return "cyan";
+
+				case 5: return "darkCyan";
+
+				case 6: return "green";
+
+				case 7: return "darkGreen";
+
+				case 8: return "magenta";
+
+				case 9: return "darkMagenta";
+
+
+				default: return "red";
+			}
+		}
+
+		#endregion
+
+		#region List Extensions
 
 		public static T getRandom<T>(this List<T> List, bool shuffle = true)
 		{
@@ -206,7 +282,7 @@ namespace wolfPawRandom
 
 		#endregion List extensions
 
-		#region String extensions
+		#region String Extensions
 
 		/// <summary>
 		/// <para>Slices a string up to even lengths returning it as an array</para>
@@ -359,13 +435,13 @@ namespace wolfPawRandom
 				case "black": c = ConsoleColor.Black; break;
 				case "blue": c = ConsoleColor.Blue; break;
 				case "cyan": c = ConsoleColor.Cyan; break;
-				case "darkBlue": c = ConsoleColor.DarkBlue; break;
-				case "darkCyan": c = ConsoleColor.DarkCyan; break;
-				case "darkGray": c = ConsoleColor.DarkGray; break;
-				case "darkGreen": c = ConsoleColor.DarkGreen; break;
-				case "darkMagenta": c = ConsoleColor.DarkMagenta; break;
-				case "darkRed": c = ConsoleColor.DarkRed; break;
-				case "darkYellow": c = ConsoleColor.DarkYellow; break;
+				case "darkblue": c = ConsoleColor.DarkBlue; break;
+				case "darkcyan": c = ConsoleColor.DarkCyan; break;
+				case "darkgray": c = ConsoleColor.DarkGray; break;
+				case "darkgreen": c = ConsoleColor.DarkGreen; break;
+				case "darkmagenta": c = ConsoleColor.DarkMagenta; break;
+				case "darkred": c = ConsoleColor.DarkRed; break;
+				case "darkyellow": c = ConsoleColor.DarkYellow; break;
 				case "gray": c = ConsoleColor.Gray; break;
 				case "green": c = ConsoleColor.Green; break;
 				case "magenta": c = ConsoleColor.Magenta; break;
@@ -492,8 +568,10 @@ namespace wolfPawRandom
 		public static void write(this string msg, string color, string bgcol = "black")
 		{
 			Console.ForegroundColor = col2Color(color);
+			Console.BackgroundColor = col2Color(bgcol);
 			Console.Write(msg);
 			Console.ForegroundColor = ConsoleColor.Gray;
+			Console.BackgroundColor = ConsoleColor.Black;
 		}
 
 		/// <summary>
@@ -531,7 +609,7 @@ namespace wolfPawRandom
 			white,
 			yellow
 		}
-
+		
 		#endregion Console.WriteLine replacement and colors
 
 		#endregion String extensions
