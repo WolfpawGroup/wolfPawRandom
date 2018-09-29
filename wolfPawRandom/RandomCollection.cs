@@ -25,7 +25,7 @@ namespace wolfPawRandom
 		{
 			int min					= 1;
 			int max					= 15;
-			int len					= Convert.ToInt32(Math.getSmallestDivisable(min, max).ToString());
+			int len					= Convert.ToInt32(WMath.getSmallestDivisable(min, max).ToString());
 			string additionalRand	= generateLongRandomString(len);
 			
 			randAdditionalTable		= additionalRand.slice(30, true);
@@ -100,11 +100,12 @@ namespace wolfPawRandom
 		string generateLongRandomString(int length)
 		{
 			length /= 2;
-			StringBuilder sb = new StringBuilder(length);
-			RandomNumberGenerator rnd = RandomNumberGenerator.Create();
-			int minilen = length / 10;
-			byte[] bytes = new byte[length];
-			byte[] tmpb = new byte[10];
+
+			StringBuilder			sb		= new StringBuilder(length);
+			RandomNumberGenerator	rnd		= RandomNumberGenerator.Create();
+			int						minilen	= length / 10;
+			byte[]					bytes	= new byte[length];
+			byte[]					tmpb	= new byte[10];
 
 			for(int i = 0; i < minilen; i++)
 			{
@@ -136,8 +137,7 @@ namespace wolfPawRandom
 				case 8: randCol_8.shiftLeft(5, true); return randCol_8.getRandom(false);
 				case 9: randCol_9.shiftLeft(5, true); return randCol_9.getRandom(false);
 
-				default:
-					return randCol_0.getRandom();
+				default: return randCol_0.getRandom();
 			}
 		}
 

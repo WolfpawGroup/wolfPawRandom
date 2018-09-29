@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
-namespace wolfPawRandom
+namespace WolfPawExtensionMethods
 {
-	public static class Extensions
+	public static class extensions
 	{
 		#region List extensions
 
@@ -390,7 +390,7 @@ namespace wolfPawRandom
 			Console.ForegroundColor = ConsoleColor.Gray;
 		}
 
-		public static void ewritel(this string msg, string color, string bgcol = "black")
+		public static void ewritel(this string msg, string color = "gray", string bgcol = "black")
 		{
 			Console.ForegroundColor = col2Color(color);
 			Console.Error.WriteLine(msg);
@@ -405,7 +405,7 @@ namespace wolfPawRandom
 		/// <param name="bgcol">Background color of message (defaults to black)</param>
 		public static void ceWL(this string msg, col color = col.gray, col bgcol = col.black) { ewritel(msg, color, bgcol); }
 
-		public static void ceWL(this string msg, string color, string bgcol = "black")
+		public static void ceWL(this string msg, string color = "gray", string bgcol = "black")
 		{
 			ewritel(msg, color, bgcol);
 		}
@@ -423,7 +423,7 @@ namespace wolfPawRandom
 			Console.ForegroundColor = ConsoleColor.Gray;
 		}
 
-		public static void writel(this string msg, string color, string bgcol = "black")
+		public static void writel(this string msg, string color = "gray", string bgcol = "black")
 		{
 			Console.ForegroundColor = col2Color(color);
 			Console.WriteLine(msg);
@@ -438,9 +438,42 @@ namespace wolfPawRandom
 		/// <param name="bgcol">Background color of message (defaults to black)</param>
 		public static void cWL(this string msg, col color = col.gray, col bgcol = col.black) { writel(msg, color, bgcol); }
 
-		public static void cWL(this string msg, string color, string bgcol = "black")
+		public static void cWL(this string msg, string color = "gray", string bgcol = "black")
 		{
 			writel(msg, color, bgcol);
+		}
+
+		/// <summary>
+		/// Writes colored line to Console standard out. (With line break.)
+		/// </summary>
+		/// <param name="msg">Message to write</param>
+		/// <param name="color">Color of message (defaults to gray)</param>
+		/// <param name="bgcol">Background color of message (defaults to black)</param>
+		public static void owritel(this string msg, col color = col.gray, col bgcol = col.black)
+		{
+			Console.ForegroundColor = col2Color(color);
+			Console.Out.WriteLine(msg);
+			Console.ForegroundColor = ConsoleColor.Gray;
+		}
+
+		public static void owritel(this string msg, string color = "gray", string bgcol = "black")
+		{
+			Console.ForegroundColor = col2Color(color);
+			Console.Out.WriteLine(msg);
+			Console.ForegroundColor = ConsoleColor.Gray;
+		}
+
+		/// <summary>
+		/// Writes colored line to Console standard out. (With line break.)
+		/// </summary>
+		/// <param name="msg">Message to write</param>
+		/// <param name="color">Color of message (defaults to gray)</param>
+		/// <param name="bgcol">Background color of message (defaults to black)</param>
+		public static void coWL(this string msg, col color = col.gray, col bgcol = col.black) { owritel(msg, color, bgcol); }
+
+		public static void coWL(this string msg, string color = "gray", string bgcol = "black")
+		{
+			owritel(msg, color, bgcol);
 		}
 
 		/// <summary>
@@ -456,7 +489,7 @@ namespace wolfPawRandom
 			Console.ForegroundColor = ConsoleColor.Gray;
 		}
 
-		public static void ewrite(this string msg, string color, string bgcol = "black")
+		public static void ewrite(this string msg, string color = "gray", string bgcol = "black")
 		{
 			Console.ForegroundColor = col2Color(color);
 			Console.Error.Write(msg);
@@ -471,7 +504,7 @@ namespace wolfPawRandom
 		/// <param name="bgcol">Background color of message (defaults to black)</param>
 		public static void ceW(this string msg, col color = col.gray, col bgcol = col.black) { ewrite(msg, color, bgcol); }
 
-		public static void ceW(this string msg, string color, string bgcol = "black")
+		public static void ceW(this string msg, string color = "gray", string bgcol = "black")
 		{
 			ewrite(msg, color, bgcol);
 		}
@@ -489,7 +522,7 @@ namespace wolfPawRandom
 			Console.ForegroundColor = ConsoleColor.Gray;
 		}
 
-		public static void write(this string msg, string color, string bgcol = "black")
+		public static void write(this string msg, string color = "gray", string bgcol = "black")
 		{
 			Console.ForegroundColor = col2Color(color);
 			Console.Write(msg);
@@ -504,9 +537,42 @@ namespace wolfPawRandom
 		/// <param name="bgcol">Background color of message (defaults to black)</param>
 		public static void cW(this string msg, col color = col.gray, col bgcol = col.black) { write(msg, color, bgcol); }
 
-		public static void cW(this string msg, string color, string bgcol = "black")
+		public static void cW(this string msg, string color = "gray", string bgcol = "black")
 		{
 			write(msg, color, bgcol);
+		}
+
+		/// <summary>
+		/// Writes colored string to Console standard out
+		/// </summary>
+		/// <param name="msg">Message to write</param>
+		/// <param name="color">Color of message (defaults to gray)</param>
+		/// <param name="bgcol">Background color of message (defaults to black)</param>
+		public static void owrite(this string msg, col color = col.gray, col bgcol = col.black)
+		{
+			Console.ForegroundColor = col2Color(color);
+			Console.Out.Write(msg);
+			Console.ForegroundColor = ConsoleColor.Gray;
+		}
+
+		public static void owrite(this string msg, string color = "gray", string bgcol = "black")
+		{
+			Console.ForegroundColor = col2Color(color);
+			Console.Out.Write(msg);
+			Console.ForegroundColor = ConsoleColor.Gray;
+		}
+
+		/// <summary>
+		/// Writes colored string to Console standard out
+		/// </summary>
+		/// <param name="msg">Message to write</param>
+		/// <param name="color">Color of message (defaults to gray)</param>
+		/// <param name="bgcol">Background color of message (defaults to black)</param>
+		public static void coW(this string msg, col color = col.gray, col bgcol = col.black) { owrite(msg, color, bgcol); }
+
+		public static void coW(this string msg, string color = "gray", string bgcol = "black")
+		{
+			owrite(msg, color, bgcol);
 		}
 
 		/// <summary>

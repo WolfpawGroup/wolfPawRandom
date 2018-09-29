@@ -15,7 +15,7 @@ namespace tester
 			WRandom wr = new WRandom();
 			int i = wr.getRandomInt(4);
 
-			
+
 
 			Console.WriteLine(i);
 			Console.Read();

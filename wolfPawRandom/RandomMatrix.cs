@@ -14,7 +14,7 @@ namespace wolfPawRandom
 
 		public RandomCollection collection = new RandomCollection();
 
-		public RandomMatrix(int width = 50, int height = 50)
+		public RandomMatrix(int width = 30, int height = 100)
 		{
 			this.initialWidth = width;
 			this.initialHeight = height;
@@ -30,9 +30,9 @@ namespace wolfPawRandom
 		public void initializeMatrix(List<int> history)
 		{
 			if ((~initialWidth | ~initialHeight) == -1)
-			{ "Width or Height not initialized! Returning!".ewrite(extensions.col.red); return; }
+			{ "Width or Height not initialized! Returning!".ewritel(Extensions.col.red); return; }
 
-			matrix = new int[initialWidth][];
+			matrix = new int[initialHeight][];
 
 			for (int h = 0; h < initialHeight; h++)
 			{

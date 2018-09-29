@@ -1,25 +1,13 @@
-﻿using System.Numerics;
+﻿using System;
+using System.Numerics;
 
 namespace wolfPawRandom
 {
 	/// <summary>
 	/// My complimentary Math class with some useful stuff
 	/// </summary>
-	internal static class Math
+	public static class WMath
 	{
-		public const double PI = System.Math.PI;
-		public const double E = System.Math.E;
-
-		public static long BigMul(int a, int b)
-		{
-			return System.Math.BigMul(a, b);
-		}
-		
-		public static double Sin(int a)
-		{
-			return System.Math.Sin(a);
-		}
-
 		/// <summary>
 		/// Basic GCD calculation
 		/// </summary>
@@ -105,5 +93,6 @@ namespace wolfPawRandom
 
 			return ret;
 		}
+
 	}
 }
