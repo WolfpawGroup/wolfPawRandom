@@ -5,16 +5,32 @@ namespace wolfPawRandom
 {
 	public class RandomMatrix
 	{
-		private int initialWidth = 0;
-		private int initialHeight = 0;
-		public int[][] matrix = null;
+		private readonly int _initialWidth = 0;
+		private readonly int _initialHeight = 0;
+		private static int[][] _matrix = null;
 
-		public RandomCollection collection = new RandomCollection();
+		/// <summary>
+		/// Matrix object used to randomize data
+		/// </summary>
+		public int[][] Matrix { get => _matrix; }
 
-		public RandomMatrix(int width = 30, int height = 100)
+		/// <summary>
+		/// RandomCollection used by the matrix to fill with initial randomization vectors
+		/// </summary>
+		public RandomCollection Collection = new RandomCollection();
+
+		/// <summary>
+		/// Initializes new RandomMatrix object.
+		/// <para>Sets width and height of matrix</para>
+		/// initializes main inner history List&lt;int&gt; variable
+		/// <para>Starts matrix initialization</para>
+		/// </summary>
+		/// <param name="width">Width of matrix. 50 by default</param>
+		/// <param name="height">Height of matrix. 50 by default</param>
+		public RandomMatrix(int width = 50, int height = 50)
 		{
-			this.initialWidth = width;
-			this.initialHeight = height;
+			this._initialWidth = width;
+			this._initialHeight = height;
 
 			List<int> history = new List<int>();
 			initializeMatrix(history);
@@ -24,56 +40,79 @@ namespace wolfPawRandom
 #endif
 		}
 
+		/// <summary>
+		/// Initializes a new matrix filling it with randomData
+		/// </summary>
+		/// <param name="history">The List&lt;int&gt; used to keep values inside the matrix unique</param>
 		public void initializeMatrix(List<int> history)
 		{
-			if ((~initialWidth | ~initialHeight) == -1)
+			if ((~_initialWidth | ~_initialHeight) == -1)
 			{ "Width or Height not initialized! Returning!".ewritel(Extensions.col.red); return; }
 
-			matrix = new int[initialHeight][];
+			_matrix = new int[_initialHeight][];
 
-			for (int h = 0; h < initialHeight; h++)
+			for (int h = 0; h < _initialHeight; h++)
 			{
-				int[] arr = new int[initialWidth];
+				int[] arr = new int[_initialWidth];
 
-				for (int w = 0; w < initialWidth; w++)
+				for (int w = 0; w < _initialWidth; w++)
 				{
 					int i = w % 10;
 					int ii = -1;
 					while (ii == -1 || history.Contains(ii))
 					{
-						ii = (int)(collection.getRandom(i) * (11 * (Math.PI + ((int)Math.E * ((w * 1.0d) / Math.PI)))));
+						ii = (int)(Collection.getRandom(i) * (11 * (Math.PI + ((int)Math.E * ((w * 1.0d) / Math.PI)))));
 					}
 					history.Add(ii);
 					arr[w] = ii;
 				}
 
-				matrix[h] = arr;
+				Matrix[h] = arr;
 			}
 		}
 
+		/// <summary>
+		/// Draws generated matrix on screen
+		/// </summary>
 		public void drawMatrix()
 		{
 			Console.BufferWidth = 300;
 			Console.Write("".PadRight(5) + "-   ");
 
-			for (int w = 0; w < matrix[0].Length; w++)
+			for (int w = 0; w < Matrix[0].Length; w++)
 			{
 				Console.Write(w.ToString().PadRight(6));
 			}
 
 			Console.WriteLine();
 
-			for (int h = 0; h < matrix.Length; h++)
+			for (int h = 0; h < Matrix.Length; h++)
 			{
 				Console.Write(h.ToString().PadRight(5) + "|  ");
 
-				for (int w = 0; w < matrix[h].Length; w++)
+				for (int w = 0; w < Matrix[h].Length; w++)
 				{
-					Console.Write(matrix[h][w].ToString().PadRight(6));
+					Console.Write(Matrix[h][w].ToString().PadRight(6));
 				}
 
 				Console.WriteLine();
 			}
+		}
+
+		/// <summary>
+		/// Returns width of the randomMatrix
+		/// </summary>
+		public int getWidth()
+		{
+			return Matrix[0].Length;
+		}
+
+		/// <summary>
+		/// Returns height of the randomMatrix
+		/// </summary>
+		public int getHeight()
+		{
+			return Matrix.Length;
 		}
 	}
 }

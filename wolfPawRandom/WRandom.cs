@@ -36,7 +36,7 @@ namespace wolfPawRandom
 
 		public int getRandomInt(int length)
 		{
-			return 0;
+			return Randomizer.randomInt();
 		}
 		
 		public int[] getRandomIntArray(int length = 10)
